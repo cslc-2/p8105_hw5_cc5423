@@ -83,9 +83,23 @@ We can see that smaller group sizes have a lower probability of having duplicate
 
 # Problem 2
 
+Reading in file names:
 ```{r}
-
+study_df =
+  tibble(
+    file_name = list.files(path = "data/")
+  )
 ```
+We now have a dataframe `study_df` that read in the file names in the data folder of our project and put them in a column called `file_name`.
+
+Cleaning the file names:
+```{r}
+study_df |> 
+  mutate(file_name = str_remove(file_name, ".csv"))
+```
+
+
+
 
 
 
