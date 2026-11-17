@@ -81,6 +81,13 @@ bday_df |>
 
 We can see that smaller group sizes have a lower probability of having duplicate birthdays, but as the group size increases, the probability that at least two people in the group will share a birthday increases. 
 
+# Problem 2
+
+```{r}
+
+```
+
+
 
 
 
