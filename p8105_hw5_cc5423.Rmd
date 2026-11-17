@@ -92,15 +92,31 @@ study_df =
 ```
 We now have a dataframe `study_df` that read in the file names in the data folder of our project and put them in a column called `file_name`.
 
-Cleaning the file names and reading in the data:
-```{r}
+
+
+```{r tidy, message=F}
 study_df |> 
   mutate(
       file_path = file.path("data", file_name),
       data = map(file_path, ~read_csv(.x)),
-      file_name = str_remove(file_name, ".csv"))
+      file_name = str_remove(file_name, ".csv")) |> 
+  unnest(data) |> 
+  pivot_longer(week_1:week_8, 
+               names_to = "week", 
+               names_prefix = "week_",
+               values_to = "measurement"
+               ) |> 
+  select(-file_path) |> 
+  separate(file_name, into = c("arm", "id"), sep = "_")
 ```
+I did the following processes:
 
+* Read in all the data using `map()` iteration
+* Remove the ".csv" portion of the file_name
+* Unnest the data
+* Made the data long format so it is tidied
+* Remove column `file_path` since that is no longer needed
+* Separate `file_name` into the arm type (control versus experimental) and the id number
 
 
 
